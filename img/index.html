@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> 
+    <title>Don Miguel</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            font-family: 'Playfair Display', 'Times New Roman';
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+            margin: 0 auto;
+            background-color: #F4EADE;
+        }
+
+        header {
+            text-align: center;
+            color: #2F496E;
+        }
+
+        .encabezado {
+            position: relative;
+            height: 100vh;
+            background-image: url('img/Encabezado.jpeg');
+            background-size: cover;
+            background-position: center;
+            
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay {
+            background-color: #ffffffa5;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .makeItOverlay {
+            z-index: 1;
+        }
+
+        .boton {
+            background-color: #2F496E; /* Color de fondo */
+            border: none;
+            color: white; /* Color del texto */
+            padding: 1em; /* Espaciado alrededor del texto */
+            text-align: center; /* Centrar el texto */
+            text-decoration: none; /* Quitar subrayado del texto */
+            display: inline-block;
+            font-size: 1.3em;
+            margin: 2em;
+            transition-duration: 0.4s; /* Duración de la transición */
+            cursor: pointer;
+            border-radius: 0.5em; /* Bordes ligeramente redondeados */
+        }
+
+        .boton:hover {
+            background-color: #ED8C72;
+            scale: 1.2;
+        }
+
+        a svg {
+            scale: 1.5;
+            border: none;
+            cursor: pointer;
+            animation: moveUpDown 2s infinite alternate;
+        }
+
+        @keyframes moveUpDown {
+            0% {
+                transform: translateY(-2vh);
+                fill: #2F496E;
+            }
+            40% {
+                fill: #2F496E;
+            }
+            100% {
+                transform: translateY(2vh);
+                fill: #ED8C72;
+            }
+        }
+
+        .encabezado h1 {
+            font-size: 5em;
+            margin: 5px;
+        }
+
+        .encabezado h2 {
+            font-size: 3.5em;
+            margin: 5px;
+        }
+        @media screen and (max-width: 768px) {
+            .encabezado h1 {
+                font-size: 4em;
+            }
+            .encabezado h2 {
+                font-size: 2.5em;
+            }
+            .encabezado .boton {
+                font-size: 1.2;
+            }
+        }
+        @media screen and (max-width: 450px) {
+            .encabezado h1 {
+                font-size: 3em;
+            }
+            .encabezado h2 {
+                font-size: 2em;
+            }
+            .encabezado .boton {
+                font-size: 1.2;
+            }
+        }
+        /* Estilo para el contenedor */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Estilo para cada elemento */
+        .element {
+            margin: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        figure svg {
+            scale: 0.5;
+            margin: 0;
+        }
+
+        .mySlides {display:none}
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="overlay"></div>
+        <div class="makeItOverlay">
+            <h2>APARTAMENTOS SUITE</h2>
+            <h1>DON MIGUEL</h1>
+            <div style="height: 40vh;"></div>
+            <a class="boton" href="reservar.html">RESERVA YA</a>
+            <div style="height: 5vh;"></div>
+            <a href="#inicio">
+                <svg xmlns="http://www.w3.org/2000/svg" height="3em" viewBox="0 -960 960 960" width="3em" fill="currentColor">
+                    <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+    <main id="inicio">
+        <article>
+            <header>
+                <h2>Apartamentos Suite Don Miguel</h2>
+            </header>
+            <div class="container">
+                <div class="element">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
+                        <path d="M80-120v-80q38 0 57-20t75-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 75 20t57 20v80q-59 0-77.5-20T748-160q-36 0-57 20t-77 20q-56 0-77-20t-57-20q-36 0-57 20t-77 20q-56 0-77-20t-57-20q-36 0-54.5 20T80-120Zm0-180v-80q38 0 57-20t75-20q56 0 77.5 20t56.5 20q36 0 57-20t77-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 75 20t57 20v80q-59 0-77.5-20T748-340q-36 0-55.5 20T614-300q-57 0-77.5-20T480-340q-38 0-56.5 20T346-300q-59 0-78.5-20T212-340q-36 0-54.5 20T80-300Zm196-204 133-133-40-40q-33-33-70-48t-91-15v-100q75 0 124 16.5t96 63.5l256 256q-17 11-33 17.5t-37 6.5q-36 0-57-20t-77-20q-56 0-77 20t-57 20q-21 0-37-6.5T276-504Zm392-336q42 0 71 29.5t29 70.5q0 42-29 71t-71 29q-42 0-71-29t-29-71q0-41 29-70.5t71-29.5Z"/>
+                    </svg>
+                    <div class="name">Piscina</div>
+                </div>
+                
+                <div class="element">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
+                        <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h400v-480H160v480Zm480 0h160v-480H640v480Zm40-360h80v-80h-80v80Zm40 160q17 0 28.5-11.5T760-480q0-17-11.5-28.5T720-520q-17 0-28.5 11.5T680-480q0 17 11.5 28.5T720-440Zm0 160q17 0 28.5-11.5T760-320q0-17-11.5-28.5T720-360q-17 0-28.5 11.5T680-320q0 17 11.5 28.5T720-280Zm-310-40q-24 0-41.5-9T338-346q-10-7-16-10.5t-12-3.5q-11 0-22 9t-16 15l-57-56q11-12 35.5-30t59.5-18q24 0 41.5 9.5T382-413q9 6 16 9.5t12 3.5q11 0 22-9t16-15l57 56q-11 12-35.5 30T410-320Zm0-200q-24 0-41.5-9T338-546q-10-7-16-10.5t-12-3.5q-11 0-22 9t-16 15l-57-56q11-12 35.5-30t59.5-18q24 0 41.5 9.5T382-613q9 6 16 9.5t12 3.5q11 0 22-9t16-15l57 56q-11 12-35.5 30T410-520Zm230 280v-480 480Z"/>
+                    </svg>
+                    <div class="name">Microondas</div>
+                </div>
+                
+                <div class="element">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
+                        <path d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"/>
+                    </svg>
+                    <div class="name">Wifi</div>
+                </div>
+                
+                <div class="element">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
+                        <path d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"/>
+                    </svg>
+                    <div class="name">Wifi</div>
+                </div>
+            </div>
+        </article>
+        <article>
+            <header>
+                <h2>Hoooaosdjf</h2>
+            </header>
+
+            <img class="mySlides" src="img/salon.jpg" style="width: 100vw;">
+            <img class="mySlides" src="img/cocina.jpeg" style="width: 100vw;">
+            <img class="mySlides" src="img/habitacion.jpg" style="width: 100vw;">
+            <img class="mySlides" src="img/cocina.jpeg" style="width: 100vw;">
+            <div style="width:100%">
+                <div onclick="plusDivs(-1)">&#10094;</div>
+                <div onclick="plusDivs(1)">&#10095;</div>
+                <span class="w3-badge" onclick="currentDiv(1)"></span>
+                <span class="w3-badge" onclick="currentDiv(2)"></span>
+                <span class="w3-badge" onclick="currentDiv(3)"></span>
+                <span class="w3-badge" onclick="currentDiv(4)"></span>
+            </div>
+        </article>
+    </main>
+</body>
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function currentDiv(n) {
+        showDivs(slideIndex = n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        if (n > x.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = x.length}
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace("white", "");
+        }
+        x[slideIndex-1].style.display = "block";  
+        dots[slideIndex-1].className += "white";
+    }
+</script>
+</html>
+
+
+
+
+               
+                
+
+
