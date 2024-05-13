@@ -28,7 +28,7 @@
         }
 
         .encabezado {
-            background-attachment:scroll;
+            
             position: relative;
             height: 100vh;
             background-image: url('img/Encabezado.jpeg');
@@ -40,6 +40,10 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding-top: env(safe-area-inset-top); /* Ajusta el espacio desde el borde superior */
+            padding-right: env(safe-area-inset-right); /* Ajusta el espacio desde el borde derecho */
+            padding-bottom: env(safe-area-inset-bottom); /* Ajusta el espacio desde el borde inferior */
+            padding-left: env(safe-area-inset-left); /* Ajusta*/
         }
 
         .overlay {
