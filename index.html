@@ -2,15 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> 
     <title>Don Miguel</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
         html {
             scroll-behavior: smooth;
         }
+        
         body {
-            padding: 0;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
             font-family: 'Playfair Display', 'Times New Roman';
             overflow-x: hidden;
             overscroll-behavior-y: none;
