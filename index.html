@@ -60,7 +60,6 @@
                     logger: m => console.log(m),
                 }
             ).then(({ data: { text } }) => {
-                resultadoP.textContent += text;
                 console.log("RESULTADO: " + text )
                 if (text.indexOf("IDESP") !== -1) {
                     const MRZ = text.slice(text.indexOf("IDESP"), text.length);
@@ -85,8 +84,8 @@
 
                     // Extraer información de la segunda línea
                     var fechaFormato = "";
-                    fechaFormato = line2.substring(4, 6);
-                    fechaFormato += line2.substring(2, 4);
+                    fechaFormato = line2.substring(4, 6) + "/";
+                    fechaFormato += line2.substring(2, 4) + "/";
                     fechaFormato += line2.substring(0, 2);
                     const birthDate = fechaFormato;
 
@@ -94,10 +93,11 @@
                     const sex = line2.substring(7, 8);
 
                     var fechaFormato = "";
-                    fechaFormato = line2.substring(12, 14);
-                    fechaFormato += line2.substring(10, 12);
+                    fechaFormato = line2.substring(12, 14) + "/";
+                    fechaFormato += line2.substring(10, 12) + "/";
                     fechaFormato += line2.substring(8, 10);
                     const expirationDate = fechaFormato;
+
                     const expirationDateCheckDigit = line2.substring(14, 15);
                     const nationality = line2.substring(15, 18);
 
@@ -133,7 +133,7 @@
                         console.log("El nº DNI es posible " + letras[restoDNI] + documentNumberCheckDigit);
                     }
 
-                    resultadoP.textContent += " Docu: " + documentNumber;
+                    resultadoP.textContent = "Resultado:\nNúm. de documento de identidad: " + documentNumber + documentNumberCheckDigit + "\nTipo de documento: DNI" + "\nFecha expedición del documento: " + expirationDate + "\nApellidos: " + surname + "\nNombre: " + givenNames + "\nSexo: " + sex + "\nFecha de nacimiento: " + birthDate + "\nPaís de nacionalidad: " + nationality + "\nFecha de entrada: " + new Date();
                 }
             }).catch(err => {
                 console.error(err);
