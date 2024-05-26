@@ -84,10 +84,20 @@
                     const documentNumberCheckDigit = line1.substring(23, 24);
 
                     // Extraer información de la segunda línea
-                    const birthDate = line2.substring(0, 6);
+                    var fechaFormato = "";
+                    fechaFormato = line2.substring(4, 6);
+                    fechaFormato += line2.substring(2, 4);
+                    fechaFormato += line2.substring(0, 2);
+                    const birthDate = fechaFormato;
+
                     const birthDateCheckDigit = line2.substring(6, 7);
                     const sex = line2.substring(7, 8);
-                    const expirationDate = line2.substring(8, 14);
+
+                    var fechaFormato = "";
+                    fechaFormato = line2.substring(12, 14);
+                    fechaFormato += line2.substring(10, 12);
+                    fechaFormato += line2.substring(8, 10);
+                    const expirationDate = fechaFormato;
                     const expirationDateCheckDigit = line2.substring(14, 15);
                     const nationality = line2.substring(15, 18);
 
@@ -123,7 +133,6 @@
                         console.log("El nº DNI es posible " + letras[restoDNI] + documentNumberCheckDigit);
                     }
 
-                    console.log(extractedData);
                     resultadoP.textContent += " Docu: " + documentNumber;
                 }
             }).catch(err => {
