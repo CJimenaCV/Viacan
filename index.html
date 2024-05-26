@@ -2,358 +2,130 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> 
-    <title>Suite Don Miguel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captura y OCR</title>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/tesseract.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
-        html {
-            scroll-behavior: smooth;
-            margin: 0;
-            padding: 0;
-            background-color: #F4EADE;
-        }
-        
-        body {
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-            font-family: 'Playfair Display', 'Times New Roman';
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            text-align: center;
-            color: #2F496E;
-        }
-
-        .encabezado {
-            
-            position: relative;
-            height: 100vh;
-            background-image: url('img/Encabezado.jpeg');
-            background-size: cover;
-            background-position: center;
-            
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding-top: env(safe-area-inset-top); /* Ajusta el espacio desde el borde superior */
-            padding-right: env(safe-area-inset-right); /* Ajusta el espacio desde el borde derecho */
-            padding-bottom: env(safe-area-inset-bottom); /* Ajusta el espacio desde el borde inferior */
-            padding-left: env(safe-area-inset-left); /* Ajusta*/
-        }
-
-        .overlay {
-            background-color: #ffffffa5;
-            position: absolute;
-            top: 0;
-            left: 0;
+        #video {
             width: 100%;
-            height: 100%;
-        }
-
-        .makeItOverlay {
-            z-index: 1;
-        }
-
-        .boton {
-            background-color: #2F496E; /* Color de fondo */
-            border: none;
-            color: white; /* Color del texto */
-            padding: 1em; /* Espaciado alrededor del texto */
-            text-align: center; /* Centrar el texto */
-            text-decoration: none; /* Quitar subrayado del texto */
-            display: inline-block;
-            font-size: 1.3em;
-            margin: 2em;
-            transition-duration: 0.4s; /* Duración de la transición */
-            cursor: pointer;
-            border-radius: 0.5em; /* Bordes ligeramente redondeados */
-        }
-
-        .boton:hover {
-            background-color: #ED8C72;
-            scale: 1.2;
-        }
-
-        a svg {
-            scale: 1.5;
-            border: none;
-            cursor: pointer;
-            animation: moveUpDown 2s infinite alternate;
-        }
-
-        @keyframes moveUpDown {
-            0% {
-                transform: translateY(-2vh);
-                fill: #2F496E;
-            }
-            40% {
-                fill: #2F496E;
-            }
-            100% {
-                transform: translateY(2vh);
-                fill: #ED8C72;
-            }
-        }
-
-        .encabezado h1 {
-            font-size: 5em;
-            margin: 5px;
-        }
-
-        .encabezado h2 {
-            font-size: 3.5em;
-            margin: 5px;
-        }
-        @media screen and (max-width: 768px) {
-            .encabezado h1 {
-                font-size: 4em;
-            }
-            .encabezado h2 {
-                font-size: 2.5em;
-            }
-            .encabezado .boton {
-                font-size: 1.2;
-            }
-        }
-        @media screen and (max-width: 450px) {
-            .encabezado h1 {
-                font-size: 3em;
-            }
-            .encabezado h2 {
-                font-size: 2em;
-            }
-            .encabezado .boton {
-                font-size: 1.2;
-            }
-        }
-
-        main{
-            align-content: center;
-            text-align: center;
-            align-items: center;
-            justify-content: center;
-            background-color: #F4EADE;
-            margin: 0;
-            padding: 0;
-            
-
-        }
-        /* Estilo para el contenedor */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        /* Estilo para cada elemento */
-        .element {
-            margin: 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        figure svg {
-            scale: 0.5;
-            margin: 0;
-        }
-
-        .mySlides {
-            display:none;
-            width: 100vw;
-        
-            position: relative;
-            z-index: 0;
-            animation-name: fade;
-            animation-duration: 1.5s;
-        }
-        
-        /* Nuevos estilos para el carrusel */
-        .article-wrapper {
-            align-self: center;
-            justify-content: center;
-            max-width: 1000px;
-            max-height: 500px;
-            position: relative;
-            overflow: hidden; /* Para ocultar los botones que se desbordan */
-        }
-
-        .direccion {
-            position: absolute;
-            top: 60%;
-            
-            color: white;
-            cursor: pointer;
-            z-index: 2;
-           margin: 0;
-           padding: 0;
-        }
-
-        .direccion.left {
-            left: 5%;
-        }
-
-        .direccion.right {
-            right: 5%;
-        }
-
-        @keyframes fade {
-            from {opacity: .4} 
-            to {opacity: 1}
-        }
-
-        footer {
-            background-color: #2F496E;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            position: absolute;
-           
-            width: 100%;
-            text-align: center;
-            
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <header class="encabezado">
-        <div class="overlay"></div>
-        <div class="makeItOverlay">
-            <h2>APARTAMENTOS SUITE</h2>
-            <h1>DON MIGUEL</h1>
-            <div style="height: 40vh;"></div>
-            <a class="boton" href="reservar.html">RESERVA YA</a>
-            <div style="height: 5vh;"></div>
-            <a href="#inicio">
-                <svg xmlns="http://www.w3.org/2000/svg" height="3em" viewBox="0 -960 960 960" width="3em" fill="currentColor">
-                    <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
-                </svg>
-            </a>
-        </div>
-    </header>
-    <main id="inicio">
-        <article>
-            <header>
-                <h2>Apartamentos Suite Don Miguel</h2>
-            </header>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aut iste aliquid eum architecto dolorem veniam pariatur illum dolorum delectus. Temporibus ratione eum cumque est ipsam voluptas, minus reprehenderit! Nam.</p>
-            <div class="container">
-                <div class="element">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
-                        <path d="M80-120v-80q38 0 57-20t75-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 75 20t57 20v80q-59 0-77.5-20T748-160q-36 0-57 20t-77 20q-56 0-77-20t-57-20q-36 0-57 20t-77 20q-56 0-77-20t-57-20q-36 0-54.5 20T80-120Zm0-180v-80q38 0 57-20t75-20q56 0 77.5 20t56.5 20q36 0 57-20t77-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 75 20t57 20v80q-59 0-77.5-20T748-340q-36 0-55.5 20T614-300q-57 0-77.5-20T480-340q-38 0-56.5 20T346-300q-59 0-78.5-20T212-340q-36 0-54.5 20T80-300Zm196-204 133-133-40-40q-33-33-70-48t-91-15v-100q75 0 124 16.5t96 63.5l256 256q-17 11-33 17.5t-37 6.5q-36 0-57-20t-77-20q-56 0-77 20t-57 20q-21 0-37-6.5T276-504Zm392-336q42 0 71 29.5t29 70.5q0 42-29 71t-71 29q-42 0-71-29t-29-71q0-41 29-70.5t71-29.5Z"/>
-                    </svg>
-                    <div class="name">Piscina</div>
-                </div>
-                
-                <div class="element">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
-                        <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h400v-480H160v480Zm480 0h160v-480H640v480Zm40-360h80v-80h-80v80Zm40 160q17 0 28.5-11.5T760-480q0-17-11.5-28.5T720-520q-17 0-28.5 11.5T680-480q0 17 11.5 28.5T720-440Zm0 160q17 0 28.5-11.5T760-320q0-17-11.5-28.5T720-360q-17 0-28.5 11.5T680-320q0 17 11.5 28.5T720-280Zm-310-40q-24 0-41.5-9T338-346q-10-7-16-10.5t-12-3.5q-11 0-22 9t-16 15l-57-56q11-12 35.5-30t59.5-18q24 0 41.5 9.5T382-413q9 6 16 9.5t12 3.5q11 0 22-9t16-15l57 56q-11 12-35.5 30T410-320Zm0-200q-24 0-41.5-9T338-546q-10-7-16-10.5t-12-3.5q-11 0-22 9t-16 15l-57-56q11-12 35.5-30t59.5-18q24 0 41.5 9.5T382-613q9 6 16 9.5t12 3.5q11 0 22-9t16-15l57 56q-11 12-35.5 30T410-520Zm230 280v-480 480Z"/>
-                    </svg>
-                    <div class="name">Microondas</div>
-                </div>
-                
-                <div class="element">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
-                        <path d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"/>
-                    </svg>
-                    <div class="name">Wifi</div>
-                </div>
-                
-                <div class="element">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
-                        <path d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"/>
-                    </svg>
-                    <div class="name">Wifi</div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="element">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
-                        <path d="M80-120v-80q38 0 57-20t75-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 75 20t57 20v80q-59 0-77.5-20T748-160q-36 0-57 20t-77 20q-56 0-77-20t-57-20q-36 0-57 20t-77 20q-56 0-77-20t-57-20q-36 0-54.5 20T80-120Zm0-180v-80q38 0 57-20t75-20q56 0 77.5 20t56.5 20q36 0 57-20t77-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 75 20t57 20v80q-59 0-77.5-20T748-340q-36 0-55.5 20T614-300q-57 0-77.5-20T480-340q-38 0-56.5 20T346-300q-59 0-78.5-20T212-340q-36 0-54.5 20T80-300Zm196-204 133-133-40-40q-33-33-70-48t-91-15v-100q75 0 124 16.5t96 63.5l256 256q-17 11-33 17.5t-37 6.5q-36 0-57-20t-77-20q-56 0-77 20t-57 20q-21 0-37-6.5T276-504Zm392-336q42 0 71 29.5t29 70.5q0 42-29 71t-71 29q-42 0-71-29t-29-71q0-41 29-70.5t71-29.5Z"/>
-                    </svg>
-                    <div class="name">Piscina</div>
-                </div>
-                
-                <div class="element">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
-                        <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h400v-480H160v480Zm480 0h160v-480H640v480Zm40-360h80v-80h-80v80Zm40 160q17 0 28.5-11.5T760-480q0-17-11.5-28.5T720-520q-17 0-28.5 11.5T680-480q0 17 11.5 28.5T720-440Zm0 160q17 0 28.5-11.5T760-320q0-17-11.5-28.5T720-360q-17 0-28.5 11.5T680-320q0 17 11.5 28.5T720-280Zm-310-40q-24 0-41.5-9T338-346q-10-7-16-10.5t-12-3.5q-11 0-22 9t-16 15l-57-56q11-12 35.5-30t59.5-18q24 0 41.5 9.5T382-413q9 6 16 9.5t12 3.5q11 0 22-9t16-15l57 56q-11 12-35.5 30T410-320Zm0-200q-24 0-41.5-9T338-546q-10-7-16-10.5t-12-3.5q-11 0-22 9t-16 15l-57-56q11-12 35.5-30t59.5-18q24 0 41.5 9.5T382-613q9 6 16 9.5t12 3.5q11 0 22-9t16-15l57 56q-11 12-35.5 30T410-520Zm230 280v-480 480Z"/>
-                    </svg>
-                    <div class="name">Microondas</div>
-                </div>
-                
-                <div class="element">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
-                        <path d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"/>
-                    </svg>
-                    <div class="name">Wifi</div>
-                </div>
-                
-                <div class="element">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15vh" viewBox="0 -960 960 960" width="15vh" fill="#2F496E">
-                        <path d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"/>
-                    </svg>
-                    <div class="name">Wifi</div>
-                </div>
-            </div>
-        </article>
-        <article class="article-wrapper">
-            <header>
-                <h2>Hoooaosdjf</h2>
-            </header>
-            <!-- Imágenes del carrusel -->
-            <img class="mySlides" src="img/Encabezado.jpeg">
-            <img class="mySlides" src="img/Encabezado.jpeg">
-            <img class="mySlides" src="img/Encabezado.jpeg">
-            <img class="mySlides" src="img/Encabezado.jpeg">
-    
-            <!-- Botones de dirección del carrusel -->
-            <div class="direccion left" onclick="plusDivs(-1)">
-                <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 -960 960 960" width="2em" fill="#2F496E"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
-            </div>
-            <div class="direccion right" onclick="plusDivs(1)">
-                <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 -960 960 960" width="2em" fill="#2F496E"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
-            </div>
+    <video id="video" autoplay></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <button id="snap">Capturar Foto</button>
+    <p id="resultado">Resultado: </p>
+    <script>
+        // Accede a los elementos del DOM
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const snap = document.getElementById('snap');
+        const context = canvas.getContext('2d');
 
-        </article>
-        <article>
-            <h2>HOLA</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique itaque explicabo iste animi voluptas et enim eligendi nam debitis velit cupiditate eius ipsa repudiandae ipsam odio, aut facere fuga perspiciatis.</p>
-        </article>
-    </main>
-    <footer>
-        <h3>HOLa</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur doloribus minima beatae alias eaque, nihil non nam a facere rem dolore reiciendis laborum officiis, velit vel tempora, corrupti culpa quidem!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur doloribus minima beatae alias eaque, nihil non nam a facere rem dolore reiciendis laborum officiis, velit vel tempora, corrupti culpa quidem! Nihil non nam a facere rem dolore reiciendis laborum officiis, velit vel tempora, corrupti culpa quidem!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur doloribus minima beatae alias eaque, nihil non nam a facere rem dolore reiciendis laborum officiis, velit vel tempora, corrupti culpa quidem!</p>
-    </footer>
-</body>
-<script>
-    var slideIndex = 1;
-    showDivs(slideIndex);
+        const resultadoP = document.getElementById('resultado');
 
-    function plusDivs(n) {
-        showDivs(slideIndex += n);
-    }
-
-    function currentDiv(n) {
-        showDivs(slideIndex = n);
-    }
-
-    function showDivs(n) {
-        var i;
-        var x = document.getElementsByClassName("mySlides");
-        if (n > x.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = x.length}
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";  
+        // Solicita acceso a la cámara
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function(err) {
+                console.log("Ocurrió un error: " + err);
+            });
         }
-        x[slideIndex-1].style.display = "block";  
-    }
-</script>
+
+        // Captura la foto al hacer clic en el botón
+        snap.addEventListener('click', () => {
+            // Establece el tamaño del canvas al tamaño del video
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            // Dibuja la imagen del video en el canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // Convierte la imagen del canvas a una URL de datos
+            const imageDataUrl = canvas.toDataURL('image/png');
+
+            // Usa Tesseract para reconocer texto en la imagen capturada
+            Tesseract.recognize(
+                imageDataUrl,
+                'spa', // Cambia el idioma si es necesario
+                {
+                    logger: m => console.log(m),
+                }
+            ).then(({ data: { text } }) => {
+                resultadoP.textContent += text;
+                console.log("RESULTADO: " + text )
+                if (text.indexOf("IDESP") !== -1) {
+                    const MRZ = text.slice(text.indexOf("IDESP"), text.length);
+                    console.log("Texto extraído:", MRZ);
+
+                    // Dividir la MRZ en líneas
+                    const lines = MRZ.split('\n');
+
+                    if (lines.length < 3) {
+                        throw new Error('La MRZ debe tener tres líneas.');
+                    }
+
+                    const line1 = lines[0];
+                    const line2 = lines[1];
+                    const line3 = lines[2];
+
+                    // Extraer información de la primera línea
+                    const documentType = line1.substring(0, 2);
+                    const issuingCountry = line1.substring(2, 5);
+                    const documentNumber = line1.substring(15, 23).trim().replace(/</g, '');
+                    const documentNumberCheckDigit = line1.substring(23, 24);
+
+                    // Extraer información de la segunda línea
+                    const birthDate = line2.substring(0, 6);
+                    const birthDateCheckDigit = line2.substring(6, 7);
+                    const sex = line2.substring(7, 8);
+                    const expirationDate = line2.substring(8, 14);
+                    const expirationDateCheckDigit = line2.substring(14, 15);
+                    const nationality = line2.substring(15, 18);
+
+                    // Extraer información de la tercera línea
+                    const nameData = line3.split('<<');
+                    const surname = nameData[0].replace(/</g, ' ').trim();
+                    const givenNames = nameData[1].replace(/</g, ' ').trim();
+
+                    // Formatear las fechas
+                    const birthDateFormatted = birthDate;
+                    const expirationDateFormatted = expirationDate;
+
+                    // Crear el objeto con los datos extraídos
+                    const extractedData = {
+                        documentType,
+                        issuingCountry,
+                        documentNumber,
+                        documentNumberCheckDigit,
+                        birthDate: birthDateFormatted,
+                        birthDateCheckDigit,
+                        sex,
+                        expirationDate: expirationDateFormatted,
+                        expirationDateCheckDigit,
+                        nationality,
+                        surname,
+                        givenNames
+                    };
+
+                    // VALIDAR DNI
+                    const letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+                    const restoDNI = parseInt(documentNumber) % 23;
+                    if (letras[restoDNI] == documentNumberCheckDigit) {
+                        console.log("El nº DNI es posible " + letras[restoDNI] + documentNumberCheckDigit);
+                    }
+
+                    console.log(extractedData);
+                    resultadoP.textContent += " Docu: " + documentNumber;
+                }
+            }).catch(err => {
+                console.error(err);
+            });
+        });
+    </script>
+</body>
 </html>
